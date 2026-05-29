@@ -1,0 +1,107 @@
+body {
+    font-family: "Local Noto Sans JP", "Noto Sans JP", sans-serif;
+    line-height: 1.9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+    /* 影やボーダーのガタつきを防ぐため、transitionは色・背景・影に限定するのが安全です */
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, border-color 0.2s ease-in-out;
+}
+
+/* タブの外枠 */
+.tab-container {
+    display: flex;
+    align-items: stretch;
+    background-color: #fcfcfc;
+    position: sticky;
+    top: 0;
+    z-index: 1000;    
+    width: calc(100% - 10px);
+    height: 80px;             /* 高さを明示すると安定します（お好みで調整） */
+    margin: 0 auto;
+    border-radius: 0 0 10px 10px; /* 下の角だけ丸める一括指定 */
+    overflow: hidden;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.3);
+}
+
+/* ロゴとボタンの共通設定（重複を統合） */
+.nav-logo, .tab-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 25px;          /* 上下は0、左右で幅を調整 */
+    margin: 0;                /* はみ出しの原因になるmarginを完全に0に */
+    color: black;
+    text-decoration: none;
+    font-size: 1.1rem;
+    line-height: 1;
+    border: none;
+    background: none;
+    cursor: pointer;
+    white-space: nowrap;
+    /* 下線を表示するための枠（透明な影を置いておく） */
+    box-shadow: inset 0 0 0 0 transparent;
+}
+
+/* ロゴ固有の設定 */
+.nav-logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* 右寄せにするためのトリガー*/
+.right-start {
+  margin-left: auto !important;
+}
+
+/* ホバー設定 */
+.tab-item:hover {
+    box-shadow: none !important; 
+    color: #ccc;
+    position: relative; /* 下線の位置を決める基準にする */
+}
+
+.tab-item:hover::after {
+  content: "";
+  box-shadow: inset 0 -4px 0 0 #333; 
+  position: absolute;
+  bottom: 10px;       /* 下からどのくらい浮かせたいか */
+  left: 20%;          /* 左右に余白を作る（ここを増やすと線が短くなる） */
+  right: 20%;
+  height: 4px;        /* 線の太さ */
+  background-color: #ccc; /* 線の色 */
+  border-radius: 10px; /* 線を丸くするとオシャレです */
+}
+
+/* アクティブ（選択中）の設定 */
+.tab-item.active {
+  box-shadow: none !important; 
+  color: #222;
+  position: relative; /* 下線の位置を決める基準にする */
+}
+
+/* 2. 下線を「文字の幅に合わせて」作る */
+.tab-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;       /* 下からどのくらい浮かせたいか */
+  left: 20%;          /* 左右に余白を作る（ここを増やすと線が短くなる） */
+  right: 20%;
+  height: 4px;        /* 線の太さ */
+  background-color: #222; /* 線の色 */
+  border-radius: 10px; /* 線を丸くするとオシャレです */
+}
+
+/* コンテンツエリア */
+.content {
+  padding-left: 2%;
+  padding-right: 2%;
+}
